@@ -67,14 +67,18 @@ M.highlight = function(group, color)
     local fg = color.fg and 'guifg = ' .. color.fg or 'guifg = NONE'
     local bg = color.bg and 'guibg = ' .. color.bg or 'guibg = NONE'
     local sp = color.sp and 'guisp = ' .. color.sp or ''
-    vim.cmd('highlight ' .. group .. ' ' .. style .. ' ' .. fg .. ' ' .. bg .. ' ' .. sp)
+    if color.link then
+        vim.cmd('highlight link ' .. group .. ' ' .. color.link)
+	else
+		vim.cmd('highlight ' .. group .. ' ' .. style .. ' ' .. fg .. ' ' .. bg .. ' ' .. sp)
+    end
 end
 
 M.load_syntax = function(palette)
     return {
         Normal = {
             fg = palette.white,
-            bg = palette.none,
+            bg = palette.base2,
         },
         NormalFloat = {
             fg = palette.none,
@@ -102,16 +106,19 @@ M.load_syntax = function(palette)
         },
         Cursor = {
             fg = palette.none,
-            bg = palette.none,
+            bg = palette.base2,
             style = 'reverse'
         },
         ColorColumn = {
             fg = palette.none,
-            bg = palette.base3,
+            bg = palette.base2,
+			sp = palette.base5,
+            style = 'underline'
         },
         CursorLine = {
             fg = palette.none,
-            bg = palette.base3,
+            st = palette.base5,
+            style = 'underline'
         },
         NonText = {
             fg = palette.base5,
@@ -136,29 +143,29 @@ M.load_syntax = function(palette)
         },
         MatchParen = {
             fg = palette.pink,
-            bg = palette.none,
+            bg = palette.base2,
         },
         Question = {
             fg = palette.yellow,
         },
         ModeMsg = {
             fg = palette.white,
-            bg = palette.none,
+            bg = palette.base2,
             style = 'bold',
         },
         MoreMsg = {
             fg = palette.white,
-            bg = palette.none,
+            bg = palette.base2,
             style = 'bold',
         },
         ErrorMsg = {
             fg = palette.red,
-            bg = palette.none,
+            bg = palette.base2,
             style = 'bold',
         },
         WarningMsg = {
             fg = palette.yellow,
-            bg = palette.none,
+            bg = palette.base2,
             style = 'bold',
         },
         VertSplit = {
@@ -193,22 +200,22 @@ M.load_syntax = function(palette)
         },
         SpellBad = {
             fg = palette.red,
-            bg = palette.none,
+            bg = palette.base2,
             style = 'undercurl',
         },
         SpellCap = {
             fg = palette.purple,
-            bg = palette.none,
+            bg = palette.base2,
             style = 'undercurl',
         },
         SpellRare = {
             fg = palette.aqua,
-            bg = palette.none,
+            bg = palette.base2,
             style = 'undercurl',
         },
         SpellLocal = {
             fg = palette.pink,
-            bg = palette.none,
+            bg = palette.base2,
             style = 'undercurl',
         },
         SpecialKey = {
@@ -220,7 +227,7 @@ M.load_syntax = function(palette)
         },
         Directory = {
             fg = palette.aqua,
-            bg = palette.none,
+            bg = palette.base2,
         },
         DiffAdd = {
             fg = palette.diff_add_fg,
@@ -247,16 +254,17 @@ M.load_syntax = function(palette)
             bg = palette.black,
         },
         Constant = {
-            fg = palette.aqua,
+            fg = palette.purple,
+            style = "italic",
         },
         Number = {
-            fg = palette.purple,
+            link = 'Constant',
         },
         Float = {
-            fg = palette.purple,
+            link = 'Constant',
         },
         Boolean = {
-            fg = palette.purple,
+            link = 'Constant',
         },
         Character = {
             fg = palette.yellow,
@@ -266,6 +274,7 @@ M.load_syntax = function(palette)
         },
         Type = {
             fg = palette.aqua,
+            style = "italic",
         },
         Structure = {
             fg = palette.aqua,
@@ -275,6 +284,7 @@ M.load_syntax = function(palette)
         },
         Typedef = {
             fg = palette.aqua,
+            style = "italic",
         },
         Identifier = {
             fg = palette.white,
@@ -320,6 +330,7 @@ M.load_syntax = function(palette)
         },
         SpecialComment = {
             fg = palette.grey,
+            style = "italic",
         },
         Tag = {
             fg = palette.orange,
@@ -329,6 +340,7 @@ M.load_syntax = function(palette)
         },
         Comment = {
             fg = palette.base6,
+            style = "italic",
         },
         Underlined = {
             fg = palette.none,
@@ -346,30 +358,30 @@ M.load_syntax = function(palette)
         },
         EndOfBuffer = {
             fg = palette.base2,
-            bg = palette.none,
+            bg = palette.base2,
         },
         Conceal = {
             fg = palette.grey,
-            bg = palette.none,
+            bg = palette.base2,
         },
         vCursor = {
             fg = palette.none,
-            bg = palette.none,
+            bg = palette.base2,
             style = 'reverse',
         },
         iCursor = {
             fg = palette.none,
-            bg = palette.none,
+            bg = palette.base2,
             style = 'reverse',
         },
         lCursor = {
             fg = palette.none,
-            bg = palette.none,
+            bg = palette.base2,
             style = 'reverse',
         },
         CursorIM = {
             fg = palette.none,
-            bg = palette.none,
+            bg = palette.base2,
             style = 'reverse',
         },
         CursorColumn = {
@@ -408,6 +420,39 @@ end
 
 M.load_plugin_syntax = function(palette)
     return {
+        TSString = {
+            fg = palette.yellow,
+        },
+        TSInclude = {
+            fg = palette.pink,
+        },
+        TSVariable = {
+            fg = palette.white,
+        },
+        TSVariableBuiltin = {
+            fg = palette.orange,
+        },
+        TSAnnotation = {
+            fg = palette.green,
+        },
+        TSComment = {
+            fg = palette.base6,
+        },
+        TSConstant = {
+            link = 'Constant',
+        },
+        TSConstBuiltin = {
+            link = 'Constant',
+        },
+        TSConstMacro = {
+            link = 'Constant',
+        },
+        TSConditional = {
+            fg = palette.pink,
+        },
+        TSCharacter = {
+            fg = palette.yellow,
+        },
         TSFunction = {
             fg = palette.green,
         },
@@ -420,8 +465,18 @@ M.load_plugin_syntax = function(palette)
         TSProperty = {
             fg = palette.white,
         },
+        TSParameter = {
+            fg = palette.orange,
+            style = "italic",
+        },
         TSType = {
-            fg = palette.aqua,
+            link = 'Type',
+        },
+        TSField = {
+            link = 'TSParameter',
+        },
+        TSProperty = {
+            link = 'TSField',
         },
         TSPunctBracket = {
             fg = palette.white,
@@ -485,7 +540,7 @@ M.load_plugin_syntax = function(palette)
         },
         NvimTreeSpecialFile = {
             fg = palette.white,
-            bg = palette.none,
+            bg = palette.base2,
             style = 'NONE',
         },
         TelescopeBorder = {
