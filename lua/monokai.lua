@@ -289,6 +289,7 @@ M.load_syntax = function(palette)
         },
         Function = {
             fg = palette.green,
+            style = 'italic',
         },
         Statement = {
             fg = palette.pink,
@@ -301,6 +302,7 @@ M.load_syntax = function(palette)
         },
         Keyword = {
             fg = palette.pink,
+            style = 'italic',
         },
         PreProc = {
             fg = palette.green,
@@ -328,7 +330,7 @@ M.load_syntax = function(palette)
         },
         SpecialComment = {
             fg = palette.grey,
-            style = "italic",
+            style = 'italic',
         },
         Tag = {
             fg = palette.orange,
@@ -338,7 +340,7 @@ M.load_syntax = function(palette)
         },
         Comment = {
             fg = palette.base6,
-            style = "italic",
+            style = 'italic',
         },
         Underlined = {
             fg = palette.none,
@@ -435,6 +437,7 @@ M.load_plugin_syntax = function(palette)
         },
         TSComment = {
             fg = palette.base6,
+            style = 'italic',
         },
         TSConstant = {
             link = 'Constant',
@@ -453,18 +456,22 @@ M.load_plugin_syntax = function(palette)
         },
         TSFunction = {
             fg = palette.green,
+            style = 'italic',
         },
         TSFuncBuiltin = {
             fg = palette.aqua,
         },
         TSFuncMacro = {
             fg = palette.green,
+            style = 'italic',
         },
         TSKeyword = {
             fg = palette.pink,
+            style = 'italic',
         },
         TSKeywordFunction = {
             fg = palette.pink,
+            style = 'italic',
         },
         TSKeywordOperator = {
             fg = palette.pink,
